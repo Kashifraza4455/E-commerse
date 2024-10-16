@@ -129,7 +129,9 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   -o-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
-
+.map iframe {
+  width: 100%;
+}
 .loader05 {
   width: 56px;
   height: 56px;
