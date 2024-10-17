@@ -3230,7 +3230,9 @@ input.num-product::-webkit-inner-spin-button {
   .respon5 {
     padding-top: 50px;
     padding-bottom: 50px;
-  }
+    position: absolute;
+    top: -25%;
+}
 }
 
 
