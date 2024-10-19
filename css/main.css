@@ -742,6 +742,11 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 .paymentbtn a:hover{
   color: white;
 }
+div#paypal-button-container {
+  position: relative;
+  left: 400px;
+  top: 5px;
+}
 .main-menu-m > li > a {
   font-family: Poppins-Medium;
   font-size: 14px;
