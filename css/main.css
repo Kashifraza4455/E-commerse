@@ -3247,6 +3247,10 @@ input.num-product::-webkit-inner-spin-button {
     position: absolute;
     top: -25%;
 }
+div#paypal-button-container {
+  position: relative;
+  left: 0px;
+}
 }
 
 
