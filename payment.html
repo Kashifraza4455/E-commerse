@@ -267,7 +267,10 @@
 
 	<!-- Title page -->
 
-            <div id="paypal-button-container"></div>
+            <!-- <div id="paypal-button-container"></div> -->
+
+			<div id="card-container"></div>
+			<button id="card-button" type="button">Pay</button>
 
 
 
@@ -433,13 +436,15 @@
 
 	<!--===============================================================================================-->
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!-- Add Square Web Payments SDK -->
+<script src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
+
 	<!--===============================================================================================-->
 	<script src="vendor/animsition/js/animsition.min.js"></script>
 	<!--===============================================================================================-->
 	<script src="vendor/bootstrap/js/popper.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://www.paypal.com/sdk/js?client-id=AV32graM5SHW8s3mn0p2cIoPjCmb_MBENzCH2lpWg_Ui5v-KeD1QBqAyPJd46tawqdqSy4uDJMtC_hQH&currency=USD"></script>
-    <script src="https://www.paypal.com/sdk/js?client-id=F396BWCBNXT58&currency=USD"></script>
+
 
 	<!--===============================================================================================-->
 	<script src="vendor/select2/select2.min.js"></script>
@@ -451,7 +456,7 @@
 			});
 		})
 	</script>
-        <script>
+        <!-- <script>
             paypal.Buttons({
                 createOrder: function(data, actions) {
                     return actions.order.create({
@@ -469,7 +474,7 @@
                     });
                 }
             }).render('#paypal-button-container');
-        </script>
+        </script> -->
 	<!--===============================================================================================-->
 	<script src="vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
 	<!--===============================================================================================-->
@@ -491,7 +496,49 @@
 	</script>
 	<!--===============================================================================================-->
 	<script src="js/main.js"></script>
-
+	<script>
+		async function initializeSquarePayments() {
+			const applicationId = "sandbox-sq0idb-aNz5KCnqQSaNikAAM_m20w"; // Replace with your Application ID
+			const locationId = "LYWJN3VYYEJ4F"; // Replace with your Location ID
+	
+			const payments = Square.payments("sandbox-sq0idb-aNz5KCnqQSaNikAAM_m20w", "LYWJN3VYYEJ4F");
+	
+			const card = await payments.card();
+			await card.attach("#card-container");
+	
+			document.getElementById("card-button").addEventListener("click", async function () {
+				const result = await card.tokenize();
+				if (result.status === "OK") {
+					// Here you can send the token to your backend for processing
+					console.log("Token:", result.token);
+					processPayment(result.token);
+				} else {
+					console.error(result.errors);
+				}
+			});
+		}
+	
+		async function processPayment(token) {
+			// Send the token to your backend for further processing
+			// Example: using Fetch API to send the token to your server
+			const response = await fetch('/process-payment', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ token: token }),
+			});
+	
+			if (response.ok) {
+				alert("Payment successful!");
+			} else {
+				alert("Payment failed. Please try again.");
+			}
+		}
+	
+		initializeSquarePayments();
+	</script>
+	
 </body>
 
 </html>
