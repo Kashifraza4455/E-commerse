@@ -209,7 +209,11 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   -moz-transition: all 0.3s;
   transition: all 0.3s;
 }
-
+.squre {
+  position: absolute;
+  left: 95%;
+  top: 6%;
+}
 .header-v2 .container-menu-desktop {
   height: 84px;
 }
